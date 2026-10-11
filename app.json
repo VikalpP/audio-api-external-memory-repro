@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "audioapimemoryrepro",
+    "slug": "audio-api-external-memory-repro",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "bundleIdentifier": "com.example.audioapimemoryrepro"
+    },
+    "plugins": [
+      ["expo-build-properties", { "ios": { "enableSceneSupport": true } }]
+    ]
+  }
+}
