@@ -22,7 +22,20 @@ npm install
 npx expo run:ios
 ```
 
-Press "Run" (steps a to h, table on screen plus one `REPRO_RESULT` JSON line in the Metro log) and "Loop x30" (decode, new source, assign buffer, drop; one `REPRO_LOOP` JSON line per iteration). To run both automatically on mount, set `AUTO_RUN = true` in `App.tsx`. Input length is `DURATION_SECONDS` in `App.tsx`.
+Press "Run" (steps a to h, table on screen plus one `REPRO_RESULT` JSON line in the Metro log) and "Loop x30" (decode, new source, assign buffer, drop; one `REPRO_LOOP` JSON line per iteration). To run both automatically on mount, set `AUTO_RUN = true` in `src/repro/config.ts`. Input length is `INPUT_WAV.durationSeconds` in the same file.
+
+## Layout
+
+Start with `src/repro/scenarios.ts`: it holds every `react-native-audio-api` call of the reproduction, in order, as two functions (`runStepSequence` for steps a to h, `runDecodeAssignDropLoop` for the loop).
+
+| File | Holds |
+|---|---|
+| `src/repro/scenarios.ts` | The reproduction steps and the loop, including the `REPRO_RESULT` and `REPRO_LOOP` log lines |
+| `src/repro/config.ts` | `AUTO_RUN`, the input WAV parameters, the wait times and the iteration counts |
+| `src/input/sineWav.ts` | Builds the PCM16 sine WAV in memory |
+| `src/memory/engineMemory.ts` | Reads `js_externalBytes` and `js_heapSize` from `HermesInternal.getInstrumentedStats()` |
+| `src/results/` | Delta from the previous step, multiple of the raw PCM size, and the loop iterations shown on screen |
+| `src/ui/` | The screen and the results table |
 
 ## Measurements
 
